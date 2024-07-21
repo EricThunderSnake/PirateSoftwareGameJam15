@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://bemmwpqqepews"]
+
+[ext_resource type="MeshLibrary" uid="uid://vlt1wqmjgcnc" path="res://testlib.tres" id="2_h2ntj"]
+[ext_resource type="Script" path="res://GridMap.gd" id="3_itcwq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_57ea6"]
+
+[sub_resource type="Sky" id="Sky_qydow"]
+sky_material = SubResource("ProceduralSkyMaterial_57ea6")
+
+[sub_resource type="Environment" id="Environment_3r3u1"]
+background_mode = 2
+sky = SubResource("Sky_qydow")
+ambient_light_source = 3
+ambient_light_color = Color(0.822494, 0.80237, 0.817773, 1)
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_kdd6m"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3r3u1")
+camera_attributes = SubResource("CameraAttributesPhysical_kdd6m")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.883831, 0.467806, 0, -0.467806, 0.883831, 0, 17.8852, 25.2916)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.807743, 0.589535, 0, -0.589535, 0.807743, 0, 9.80696, 11.6084)
+shadow_enabled = true
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("2_h2ntj")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65535, 65524, 0, 65533, 65524, 0, 65531, 65524, 0, 65529, 65524, 0, 65527, 65524, 0, 65525, 65524, 0, 1, 65524, 0, 3, 65524, 0, 5, 65524, 0, 7, 65524, 0, 9, 65524, 0)
+}
+script = ExtResource("3_itcwq")
