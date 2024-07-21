@@ -33,3 +33,5 @@ shadow_enabled = true
 mesh_library = ExtResource("2_h2ntj")
 cell_size = Vector3(1, 1, 1)
 script = ExtResource("3_itcwq")
+x_range = 11
+z_range = 11
