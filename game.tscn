@@ -23,10 +23,12 @@ environment = SubResource("Environment_3r3u1")
 camera_attributes = SubResource("CameraAttributesPhysical_kdd6m")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.883831, 0.467806, 0, -0.467806, 0.883831, 0, 17.8852, 25.2916)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 43.239)
+projection = 1
+size = 39.62
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.807743, 0.589535, 0, -0.589535, 0.807743, 0, 9.80696, 11.6084)
+transform = Transform3D(0.446425, -0.61967, 0.645533, -0.743667, 0.144285, 0.652795, -0.497658, -0.771486, -0.396416, 0, 9.80696, 11.6084)
 shadow_enabled = true
 
 [node name="GridMap" type="GridMap" parent="."]
@@ -35,3 +37,4 @@ cell_size = Vector3(1, 1, 1)
 script = ExtResource("3_itcwq")
 x_range = 11
 z_range = 11
+max_height = 2
