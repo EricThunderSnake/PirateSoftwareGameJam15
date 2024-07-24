@@ -1,5 +1,7 @@
 extends GridMap
 
+enum TILE {LAND = 0, HOMEBASE}
+
 @export var x_range:int
 @export var z_range:int
 @export_range(2,1000) var max_height:int
@@ -35,7 +37,7 @@ func generate_terrain():
 				var test = noise_array[count]
 				count += 1
 				if y < test:
-					set_cell_item(Vector3i(x,y,z),0)
+					set_cell_item(Vector3i(x,y,z),TILE.LAND)
 	
 
 func place_bases():
@@ -44,7 +46,7 @@ func place_bases():
 	var y = 0
 	while true:
 		if get_cell_item(Vector3i(x,y,z)) == INVALID_CELL_ITEM:
-			set_cell_item(Vector3i(x,y,z),1)
+			set_cell_item(Vector3i(x,y,z),TILE.HOMEBASE)
 			print("x: ",x,", y: ",y,", z: ",z)
 			break
 		y += 1

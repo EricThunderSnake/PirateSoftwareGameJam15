@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bemmwpqqepews"]
+
+[ext_resource type="PackedScene" uid="uid://ch2hmjuqgn6ul" path="res://Scenes/map.tscn" id="1_fmwvh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_57ea6"]
+
+[sub_resource type="Sky" id="Sky_qydow"]
+sky_material = SubResource("ProceduralSkyMaterial_57ea6")
+
+[sub_resource type="Environment" id="Environment_3r3u1"]
+background_mode = 2
+sky = SubResource("Sky_qydow")
+ambient_light_source = 3
+ambient_light_color = Color(0.822494, 0.80237, 0.817773, 1)
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_kdd6m"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.2299, 0, -65.0392)
+size = 39.62
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3r3u1")
+camera_attributes = SubResource("CameraAttributesPhysical_kdd6m")
+
+[node name="GridMap" parent="." instance=ExtResource("1_fmwvh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.131049, 0, 42.5904)
