@@ -1,21 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4no0ltvio2l4"]
+[gd_scene load_steps=16 format=3 uid="uid://b4no0ltvio2l4"]
 
 [ext_resource type="PackedScene" uid="uid://b11a6q7nj8v5i" path="res://plane.tscn" id="1_p28wi"]
 [ext_resource type="PackedScene" uid="uid://yt80u627u7g2" path="res://unit.tscn" id="2_8iuct"]
 [ext_resource type="Script" path="res://Camera3D.gd" id="3_5y4dd"]
 [ext_resource type="Script" path="res://Assets/Scripts/Player_Interface.gd" id="3_ouoiq"]
 [ext_resource type="Texture2D" uid="uid://dus38jnxx8wq" path="res://Assets/Util/SelectBox.png" id="4_3ts78"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4qj37"]
-
-[sub_resource type="Sky" id="Sky_qcidm"]
-sky_material = SubResource("ProceduralSkyMaterial_4qj37")
-
-[sub_resource type="Environment" id="Environment_ypk2p"]
-background_mode = 2
-sky = SubResource("Sky_qcidm")
-
-[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_4o51y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m8nbb"]
 
@@ -31,7 +20,36 @@ ambient_light_color = Color(0.819359, 0.650283, 0.711828, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_p4jpo"]
 size = Vector3(1000, 1, 1000)
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4qj37"]
+
+[sub_resource type="Sky" id="Sky_qcidm"]
+sky_material = SubResource("ProceduralSkyMaterial_4qj37")
+
+[sub_resource type="Environment" id="Environment_ypk2p"]
+background_mode = 2
+sky = SubResource("Sky_qcidm")
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_4o51y"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_40rd3"]
+vertices = PackedVector3Array(-24.5, 0.5, -24.5, -24.5, 0.5, 24.5, 24.5, 0.5, 24.5, 24.5, 0.5, -24.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ecf8x"]
+
 [node name="unit test map" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.912184, 0.40978, 0, -0.40978, 0.912184, 0, 8.3556, 15.3144)
+environment = SubResource("Environment_1t11b")
+script = ExtResource("3_5y4dd")
+
+[node name="visibleunits_Area3D" type="Area3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.330514, -0.943801, 0, 0.943801, 0.330514, 0, -6.61029, -18.876)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/visibleunits_Area3D"]
+shape = SubResource("BoxShape3D_p4jpo")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ypk2p")
@@ -40,24 +58,6 @@ camera_attributes = SubResource("CameraAttributesPhysical_4o51y")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.9391, 0)
 shadow_enabled = true
-
-[node name="plane" parent="." instance=ExtResource("1_p28wi")]
-transform = Transform3D(25, 0, 0, 0, 1, 0, 0, 0, 25, 0, 0, 0)
-
-[node name="unit" parent="." instance=ExtResource("2_8iuct")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.406)
-select_color = Color(0.99376, 0, 0.210651, 1)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.330514, 0.943801, 0, -0.943801, 0.330514, 0, 20, 0)
-environment = SubResource("Environment_1t11b")
-script = ExtResource("3_5y4dd")
-
-[node name="visibleunits_Area3D" type="Area3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 0.330514, -0.943801, 0, 0.943801, 0.330514, 0, -6.61029, -18.876)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/visibleunits_Area3D"]
-shape = SubResource("BoxShape3D_p4jpo")
 
 [node name="Player_Interface" type="Node2D" parent="."]
 script = ExtResource("3_ouoiq")
@@ -77,3 +77,39 @@ offset_bottom = 88.0
 text = "Player Test Interface
 "
 metadata/_edit_lock_ = true
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_40rd3")
+
+[node name="plane" parent="NavigationRegion3D" instance=ExtResource("1_p28wi")]
+transform = Transform3D(25, 0, 0, 0, 1, 0, 0, 0, 25, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/plane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/plane/StaticBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1, 0)
+shape = SubResource("BoxShape3D_ecf8x")
+
+[node name="Obstac" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="Obstac"]
+radius = 1.0
+
+[node name="Label3D" type="Label3D" parent="Obstac"]
+text = "Collision
+Avoidance
+Point"
+
+[node name="unit" parent="." instance=ExtResource("2_8iuct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.406)
+select_color = Color(0.99376, 0, 0.210651, 1)
+
+[node name="unit2" parent="." instance=ExtResource("2_8iuct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01242, 0, -6.61242)
+
+[node name="unit3" parent="." instance=ExtResource("2_8iuct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.68335, 0, -6.22014)
+
+[node name="unit4" parent="." instance=ExtResource("2_8iuct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0578248, 9.53674e-07, -9.89936)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Assets/Scripts/unit.gd" id="1_5a8kt"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b6y3k"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_8b8st"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vp237"]
 
@@ -13,9 +13,22 @@ albedo_color = Color(0.311848, 0.479249, 0.333094, 1)
 script = ExtResource("1_5a8kt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_b6y3k")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("SphereShape3D_8b8st")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 mesh = SubResource("CapsuleMesh_vp237")
 surface_material_override/0 = SubResource("StandardMaterial3D_ba2cr")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 0.25
+avoidance_enabled = true
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

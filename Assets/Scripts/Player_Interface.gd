@@ -52,10 +52,11 @@ func cast_selection():
 	for unit in BoxSelectionUnits_Visible.values():
 		#if there is time, I want to replace the player_camera.get_Vector2.... with a solution that allows
 		#the player to select a unit by overlap the unit mesh instead of the origin
-		if drag_rectangle_area.abs().has_point(player_camera.get_Vector2_from_Vector3(unit.transform.origin)):
-			unit.select()
-		else:
-			unit.deselect()
+		if unit is CharacterBody3D:
+			if drag_rectangle_area.abs().has_point(player_camera.get_Vector2_from_Vector3(unit.transform.origin)):
+				unit.select()
+			else:
+				unit.deselect()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta:float) -> void:
 	if mouse_left_click == MOUSE_LEFT_CLICK.PRESS:
